@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const admzip = require('adm-zip');
 const multer = require('multer');
 const app = express();
@@ -33,7 +34,7 @@ var compressfilesupload = multer({
 });
 
 app.get('/', compressfilesupload.array('file', 100), (req, resp) => {
-  resp.sendFile(__dirname, +'/index.html');
+  resp.sendFile(__dirname + '/index.html');
 });
 
 app.post(
@@ -42,6 +43,7 @@ app.post(
   (req, res) => {
     var zip = new admzip();
     var outputFilePath = Date.now() + 'output.zip';
+    console.log(outputFilePath);
     if (req.files) {
       req.files.forEach((file) => {
         console.log(file.path);
@@ -66,6 +68,6 @@ app.post(
   }
 );
 
-app.listen(3000, () => {
-  console.log('App is listening on PORT 3000 ');
+app.listen(4000, () => {
+  console.log('App is listening on PORT 4000 ');
 });
